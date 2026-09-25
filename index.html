@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Echelon — mirror the market's upper echelon</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <meta name="description" content="Echelon — follow the top hedge funds and star investors and mirror their books from public SEC 13F filings." />
+    <script>
+      // Recover from a cached index.html pointing at a bundle that no longer
+      // exists.
+      //
+      // Publishing force-pushes a fresh build, so every hashed asset from the
+      // previous deploy disappears. A returning visitor holding the old HTML —
+      // which GitHub Pages caches for ten minutes — then requests a bundle that
+      // is now a 404. The module never runs, React never mounts, and the page is
+      // silently, completely blank. No console error a user would ever see, and
+      // nothing on screen to suggest reloading.
+      //
+      // A module that fails to load is therefore treated as a stale document
+      // rather than a broken app: reload once, with a cache-buster so the HTML
+      // itself is refetched rather than served from the same cache that caused
+      // this. Guarded to a single attempt per tab, because a genuinely missing
+      // bundle must fail visibly instead of reloading forever.
+      (function () {
+        var KEY = "echelon.recovered";
+        window.addEventListener("error", function (e) {
+          var t = e.target;
+          if (!t || t.tagName !== "SCRIPT" || t.type !== "module") return;
+          try {
+            if (sessionStorage.getItem(KEY)) return;
+            sessionStorage.setItem(KEY, "1");
+          } catch (_) { return; }   // private mode: better to show the blank than loop
+          var u = new URL(location.href);
+          u.searchParams.set("r", Date.now().toString(36));
+          location.replace(u.toString());
+        }, true);
+
+        // Mounting proves the document was fine, so let a future stale deploy
+        // use its one retry too.
+        window.addEventListener("load", function () {
+          setTimeout(function () {
+            var root = document.getElementById("root");
+            if (root && root.children.length) {
+              try { sessionStorage.removeItem(KEY); } catch (_) {}
+            }
+          }, 1500);
+        });
+      })();
+    </script>
+    <script type="module" crossorigin src="/echelon/assets/index-BjE1Mvva.js"></script>
+    <link rel="stylesheet" crossorigin href="/echelon/assets/index-DUCdI7uL.css">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
